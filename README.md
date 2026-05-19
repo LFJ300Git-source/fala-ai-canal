@@ -3,7 +3,7 @@
 Prompts, comandos e materiais de todos os vídeos do canal.
 
 ## 📺 Canal
-https://youtube.com/@[seu-usuario-youtube]
+https://youtube.com/@FalaAI-x6g
 
 ## 📁 Vídeos
 
