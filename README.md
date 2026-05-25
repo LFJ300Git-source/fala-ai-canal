@@ -9,8 +9,7 @@ https://youtube.com/@FalaAI-x6g
 
 | # | Vídeo | Pasta |
 |---|-------|-------|
-| 34 | Higgsfield Supercomputer | [34-higgsfield-supercomputer](./34-higgsfield-supercomputer) |
-| 33 | Remotion + Claude Code | [33-remotion](./33-remotion) |
-| 35 | Como fazer VLOG de VIAGEM NO TEMPO com IA (o que tá viralizando) | 
+| 34 | Higgsfield Supercomputer | [34-higgsfield-supercomputer]
+| 35 | Como fazer VLOG de VIAGEM NO TEMPO com IA (o que tá viralizando) | 📄 [Prompt completo](https://github.com/LFJ300Git-source/fala-ai-canal/blob/main/prompts_setup_panel.txt)
 ---
 ⭐ Se os materiais te ajudaram, deixa uma estrela no repositório!
