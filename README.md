@@ -11,6 +11,6 @@ https://youtube.com/@FalaAI-x6g
 |---|-------|-------|
 | 34 | Higgsfield Supercomputer | [34-higgsfield-supercomputer](./34-higgsfield-supercomputer) |
 | 33 | Remotion + Claude Code | [33-remotion](./33-remotion) |
-
+| 35 | Como fazer VLOG de VIAGEM NO TEMPO com IA (o que tá viralizando) | 
 ---
 ⭐ Se os materiais te ajudaram, deixa uma estrela no repositório!
