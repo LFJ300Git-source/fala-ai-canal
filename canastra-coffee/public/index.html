@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Canastra Coffee — Da terra à xícara</title>
+  <meta name="description" content="Canastra Coffee — Cafés especiais de origem única. Da terra à xícara, nada no meio.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+  <!-- ===== LOADING SCREEN ===== -->
+  <div id="loading-screen">
+    <div class="loading-content">
+      <div class="loading-logo">CANASTRA</div>
+      <div class="loading-tagline">Loading your coffee experience</div>
+      <div class="loading-bar-wrap">
+        <div class="loading-bar-fill" id="loading-bar-fill"></div>
+      </div>
+      <div class="loading-percent" id="loading-percent">0%</div>
+    </div>
+  </div>
+
+  <!-- ===== SCROLL PROGRESS BAR ===== -->
+  <div id="scroll-progress-bar"></div>
+
+  <!-- ===== HEADER ===== -->
+  <header id="site-header">
+    <div class="header-inner">
+      <div class="header-logo">CANASTRA</div>
+      <nav class="header-nav">
+        <a href="#origens">Origem</a>
+        <a href="#colecao">Processo</a>
+        <a href="#colecao">Coleção</a>
+      </nav>
+      <a href="#colecao" class="header-cta">COMPRAR</a>
+    </div>
+  </header>
+
+  <!-- ===== HERO VIDEO SECTION ===== -->
+  <section id="hero">
+    <div class="hero-sticky">
+
+      <video
+        id="hero-video"
+        muted
+        playsinline
+        preload="auto"
+        disablepictureinpicture
+        aria-hidden="true"
+      >
+        <source src="./video/main.mp4" type="video/mp4">
+      </video>
+
+      <!-- Text overlays — scroll % ranges -->
+      <div class="hero-overlay" data-start="0" data-end="12">
+        <p class="overlay-eyebrow">Canastra Coffee</p>
+        <h1 class="overlay-title">DA TERRA<br><em>À XÍCARA</em></h1>
+      </div>
+
+      <div class="hero-overlay" data-start="17" data-end="28">
+        <h2 class="overlay-title overlay-title--sm">ORIGEM ÚNICA.</h2>
+        <h2 class="overlay-title overlay-title--sm overlay-accent">CULTIVADO COM RESPEITO.</h2>
+      </div>
+
+      <div class="hero-overlay" data-start="34" data-end="45">
+        <h2 class="overlay-title">DA CEREJA<br>AO GRÃO</h2>
+      </div>
+
+      <div class="hero-overlay" data-start="50" data-end="62">
+        <h2 class="overlay-title">TORRADO COM<br><em>PRECISÃO</em></h2>
+      </div>
+
+      <div class="hero-overlay" data-start="67" data-end="78">
+        <h2 class="overlay-title">MOÍDO NO<br>MOMENTO CERTO</h2>
+      </div>
+
+      <div class="hero-overlay" data-start="83" data-end="95">
+        <h2 class="overlay-title overlay-title--lg"><em>SINTA</em><br>O AROMA</h2>
+        <p class="overlay-sub">Seis origens. Uma obsessão.</p>
+      </div>
+
+      <!-- Scroll indicator -->
+      <div class="scroll-hint" id="scroll-hint">
+        <span>ROLE PARA DESCOBRIR</span>
+        <div class="scroll-hint-line"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== PRODUCT COLLECTION ===== -->
+  <section id="colecao">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <p class="section-eyebrow">A COLEÇÃO</p>
+        <h2 class="section-title">Cada origem conta<br>uma história diferente.</h2>
+        <p class="section-subtitle">Cada xícara, uma sensação única.</p>
+      </div>
+
+      <div class="products-grid">
+
+        <!-- 1. GEOMETRY -->
+        <div class="product-card reveal">
+          <div class="product-image-wrap">
+            <img src="./images/geometry.png" alt="Geometry" class="product-img">
+            <span class="origin-badge">Etiópia</span>
+          </div>
+          <div class="product-body">
+            <h3 class="product-name">Geometry</h3>
+            <p class="product-origin">Yirgacheffe · Natural Washed</p>
+            <div class="aroma-tags">
+              <span class="tag">Frutas Vermelhas</span>
+              <span class="tag">Pêssego</span>
+              <span class="tag">Earl Grey</span>
+              <span class="tag">Floral</span>
+            </div>
+            <div class="roast-row">
+              <span class="roast-label">Torra</span>
+              <div class="roast-bar"><div class="roast-fill" style="width:20%"></div></div>
+              <span class="roast-level">Leve</span>
+            </div>
+            <div class="size-pills">
+              <button class="size-pill active">100g</button>
+              <button class="size-pill">300g</button>
+              <button class="size-pill">1kg</button>
+            </div>
+            <div class="product-footer">
+              <span class="product-price">R$ 89,00</span>
+              <button class="add-btn">ADICIONAR</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. TROPICAL WEATHER (destaque) -->
+        <div class="product-card product-card--featured reveal">
+          <div class="product-badge-featured">★ DESTAQUE</div>
+          <div class="product-image-wrap">
+            <img src="./images/tropical-weather.png" alt="Tropical Weather" class="product-img">
+            <span class="origin-badge">Colômbia</span>
+          </div>
+          <div class="product-body">
+            <h3 class="product-name">Tropical Weather</h3>
+            <p class="product-origin">Huila · Anaeróbico Natural</p>
+            <div class="aroma-tags">
+              <span class="tag">Frutas Mistas</span>
+              <span class="tag">Chá Doce</span>
+              <span class="tag">Mel Silvestre</span>
+              <span class="tag">Ameixa</span>
+            </div>
+            <div class="roast-row">
+              <span class="roast-label">Torra</span>
+              <div class="roast-bar"><div class="roast-fill" style="width:20%"></div></div>
+              <span class="roast-level">Leve</span>
+            </div>
+            <div class="size-pills">
+              <button class="size-pill active">100g</button>
+              <button class="size-pill">300g</button>
+              <button class="size-pill">1kg</button>
+            </div>
+            <div class="product-footer">
+              <span class="product-price">R$ 97,00</span>
+              <button class="add-btn">ADICIONAR</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. POWER NAP -->
+        <div class="product-card reveal">
+          <div class="product-image-wrap">
+            <img src="./images/power-nap.png" alt="Power Nap" class="product-img">
+            <span class="origin-badge">Quênia</span>
+          </div>
+          <div class="product-body">
+            <h3 class="product-name">Power Nap</h3>
+            <p class="product-origin">AA · Lavado</p>
+            <div class="aroma-tags">
+              <span class="tag">Açúcar Mascavo</span>
+              <span class="tag">Cacau</span>
+              <span class="tag">Floral</span>
+              <span class="tag">Pêssego</span>
+              <span class="tag">Sedoso</span>
+            </div>
+            <div class="roast-row">
+              <span class="roast-label">Torra</span>
+              <div class="roast-bar"><div class="roast-fill" style="width:50%"></div></div>
+              <span class="roast-level">Médio</span>
+            </div>
+            <div class="size-pills">
+              <button class="size-pill active">100g</button>
+              <button class="size-pill">300g</button>
+              <button class="size-pill">1kg</button>
+            </div>
+            <div class="product-footer">
+              <span class="product-price">R$ 97,00</span>
+              <button class="add-btn">ADICIONAR</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. SOUTHERN WEATHER -->
+        <div class="product-card reveal">
+          <div class="product-image-wrap">
+            <img src="./images/southern-weather.png" alt="Southern Weather" class="product-img">
+            <span class="origin-badge">Peru</span>
+          </div>
+          <div class="product-body">
+            <h3 class="product-name">Southern Weather</h3>
+            <p class="product-origin">Andes · Natural</p>
+            <div class="aroma-tags">
+              <span class="tag">Chocolate ao Leite</span>
+              <span class="tag">Ameixa</span>
+              <span class="tag">Nozes</span>
+              <span class="tag">Finalização Cítrica</span>
+            </div>
+            <div class="roast-row">
+              <span class="roast-label">Torra</span>
+              <div class="roast-bar"><div class="roast-fill" style="width:50%"></div></div>
+              <span class="roast-level">Médio</span>
+            </div>
+            <div class="size-pills">
+              <button class="size-pill active">100g</button>
+              <button class="size-pill">300g</button>
+              <button class="size-pill">1kg</button>
+            </div>
+            <div class="product-footer">
+              <span class="product-price">R$ 89,00</span>
+              <button class="add-btn">ADICIONAR</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. MONARCH -->
+        <div class="product-card reveal">
+          <div class="product-image-wrap">
+            <img src="./images/monarch.png" alt="Monarch" class="product-img">
+            <span class="origin-badge">Ruanda</span>
+          </div>
+          <div class="product-body">
+            <h3 class="product-name">Monarch</h3>
+            <p class="product-origin">Nyungwe · Natural</p>
+            <div class="aroma-tags">
+              <span class="tag">Chocolate Amargo</span>
+              <span class="tag">Melaço</span>
+              <span class="tag">Vinho Tinto</span>
+              <span class="tag">Frutas Secas</span>
+            </div>
+            <div class="roast-row">
+              <span class="roast-label">Torra</span>
+              <div class="roast-bar"><div class="roast-fill" style="width:85%"></div></div>
+              <span class="roast-level">Escuro Intenso</span>
+            </div>
+            <div class="size-pills">
+              <button class="size-pill active">100g</button>
+              <button class="size-pill">300g</button>
+              <button class="size-pill">1kg</button>
+            </div>
+            <div class="product-footer">
+              <span class="product-price">R$ 89,00</span>
+              <button class="add-btn">ADICIONAR</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. ECLIPSE (edição limitada) -->
+        <div class="product-card product-card--limited reveal">
+          <div class="product-badge-limited">⚡ EDIÇÃO LIMITADA</div>
+          <div class="product-image-wrap">
+            <img src="./images/eclipse.png" alt="Eclipse" class="product-img">
+            <span class="origin-badge">Panamá</span>
+          </div>
+          <div class="product-body">
+            <h3 class="product-name">Eclipse</h3>
+            <p class="product-origin">Geisha · Anaeróbico</p>
+            <div class="aroma-tags">
+              <span class="tag">Chocolate Belga</span>
+              <span class="tag">Açúcar Queimado</span>
+              <span class="tag">Baunilha Defumada</span>
+            </div>
+            <div class="roast-row">
+              <span class="roast-label">Torra</span>
+              <div class="roast-bar"><div class="roast-fill" style="width:70%"></div></div>
+              <span class="roast-level">Escuro</span>
+            </div>
+            <div class="size-pills">
+              <button class="size-pill active">100g</button>
+              <button class="size-pill">300g</button>
+            </div>
+            <div class="product-footer">
+              <span class="product-price">R$ 144,00</span>
+              <button class="add-btn">ADICIONAR</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ORIGIN CARDS SECTION ===== -->
+  <section id="origens">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <p class="section-eyebrow">NOSSAS ORIGENS</p>
+        <h2 class="section-title">Nossas Origens</h2>
+        <p class="section-subtitle">Cada xícara começa com uma escolha. Conheça de onde vem o seu café.</p>
+      </div>
+
+      <div class="origins-grid">
+
+        <div class="origin-card reveal">
+          <h3 class="origin-country">Etiópia</h3>
+          <p class="origin-region">Yirgacheffe</p>
+          <p class="origin-product">GEOMETRY</p>
+        </div>
+
+        <div class="origin-card reveal">
+          <h3 class="origin-country">Colômbia</h3>
+          <p class="origin-region">Huila</p>
+          <p class="origin-product">TROPICAL WEATHER</p>
+        </div>
+
+        <div class="origin-card reveal">
+          <h3 class="origin-country">Quênia</h3>
+          <p class="origin-region">AA</p>
+          <p class="origin-product">POWER NAP</p>
+        </div>
+
+        <div class="origin-card reveal">
+          <h3 class="origin-country">Peru</h3>
+          <p class="origin-region">Andes</p>
+          <p class="origin-product">SOUTHERN WEATHER</p>
+        </div>
+
+        <div class="origin-card reveal">
+          <h3 class="origin-country">Ruanda</h3>
+          <p class="origin-region">Nyungwe</p>
+          <p class="origin-product">MONARCH</p>
+        </div>
+
+        <div class="origin-card reveal">
+          <h3 class="origin-country">Panamá</h3>
+          <p class="origin-region">Geisha</p>
+          <p class="origin-product">ECLIPSE</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SUBSCRIPTION ===== -->
+  <section id="assinatura">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <p class="section-eyebrow">ASSINATURA</p>
+        <h2 class="section-title">Nunca fique<br>sem Canastra</h2>
+        <p class="section-subtitle">Receba o café perfeito na sua porta todo mês.</p>
+      </div>
+
+      <div class="plans-grid">
+        <div class="plan-card reveal">
+          <p class="plan-name">DESCOBERTA</p>
+          <div class="plan-price"><span class="plan-amount">R$ 79</span><span class="plan-period">/mês</span></div>
+          <ul class="plan-features">
+            <li>100g por mês</li>
+            <li>Frete grátis</li>
+            <li>Rotação de perfis</li>
+          </ul>
+          <button class="plan-btn">ASSINAR</button>
+        </div>
+
+        <div class="plan-card plan-card--highlight reveal">
+          <p class="plan-badge">MAIS POPULAR</p>
+          <p class="plan-name">RITUAL</p>
+          <div class="plan-price"><span class="plan-amount">R$ 149</span><span class="plan-period">/mês</span></div>
+          <ul class="plan-features">
+            <li>300g por mês</li>
+            <li>Frete grátis</li>
+            <li>Rotação de perfis</li>
+            <li>Nota de torra exclusiva</li>
+          </ul>
+          <button class="plan-btn plan-btn--highlight">ASSINAR</button>
+        </div>
+
+        <div class="plan-card reveal">
+          <p class="plan-name">SOMMELIER</p>
+          <div class="plan-price"><span class="plan-amount">R$ 249</span><span class="plan-period">/mês</span></div>
+          <ul class="plan-features">
+            <li>1kg por mês</li>
+            <li>Frete grátis</li>
+            <li>Seleção exclusiva</li>
+            <li>Acesso antecipado</li>
+          </ul>
+          <button class="plan-btn">ASSINAR</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer id="footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">CANASTRA</div>
+          <p class="footer-tagline">Da terra à xícara, nada no meio.</p>
+        </div>
+        <nav class="footer-nav">
+          <a href="#colecao">Coleção</a>
+          <a href="#origens">Origens</a>
+          <a href="#colecao">Processo</a>
+          <a href="#assinatura">Assinatura</a>
+          <a href="mailto:contato@canastracoffee.com">Contato</a>
+        </nav>
+        <div class="footer-social">
+          <a href="#" class="social-icon" aria-label="Instagram">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="2" y="2" width="20" height="20" rx="5"/>
+              <circle cx="12" cy="12" r="4"/>
+              <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+            </svg>
+          </a>
+          <a href="#" class="social-icon" aria-label="YouTube">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M22.5 6.5s-.25-1.75-1-2.5c-.97-1-2.05-1-2.55-1.06C16.5 2.78 12 2.78 12 2.78s-4.5 0-6.95.17c-.5.06-1.58.06-2.55 1.06-.75.75-1 2.5-1 2.5S1.25 8.5 1.25 10.5v1.86c0 2 .25 4 .25 4s.25 1.75 1 2.5c.97 1 2.25.97 2.82 1.07C7.25 20.12 12 20.12 12 20.12s4.5 0 6.95-.2c.5-.06 1.58-.06 2.55-1.07.75-.75 1-2.5 1-2.5s.25-2 .25-4v-1.86c0-2-.25-4-.25-4z"/>
+              <polygon points="9.75,15.02 15.5,12 9.75,8.98" fill="currentColor" stroke="none"/>
+            </svg>
+          </a>
+          <a href="#" class="social-icon" aria-label="WhatsApp">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Canastra Coffee — Todos os direitos reservados</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./script.js"></script>
+</body>
+</html>
