@@ -1,0 +1,796 @@
+{
+  "duration": 50.04,
+  "text": "Your heart beats about 100,000 times every day, pumping nearly 5 liters of blood every minute. But how does this fist-sized muscle actually work? The heart is divided into four chambers. The two on top are called the right atrium and left atrium. The two on the bottom are the right ventricle and left ventricle. Blood returning from your body arrives empty of oxygen. It enters the right atrium, then drops into the right ventricle, which pumps it straight to the lungs. In the lungs, the blood picks up fresh oxygen. It travels back to the left atrium, then falls into the left ventricle, the strongest chamber of the heart. With a single powerful squeeze, the left ventricle launches oxygen-rich blood through the aorta, sending it to every cell in your body. This entire round trip takes less than one second, and your heart will repeat it roughly 2.5 billion times in your lifetime.",
+  "words": [
+    {
+      "word": "Your",
+      "start": 0.0,
+      "end": 0.26
+    },
+    {
+      "word": "heart",
+      "start": 0.26,
+      "end": 0.54
+    },
+    {
+      "word": "beats",
+      "start": 0.54,
+      "end": 0.82
+    },
+    {
+      "word": "about",
+      "start": 0.82,
+      "end": 1.06
+    },
+    {
+      "word": "100",
+      "start": 1.06,
+      "end": 1.52
+    },
+    {
+      "word": ",000",
+      "start": 1.52,
+      "end": 1.92
+    },
+    {
+      "word": "times",
+      "start": 1.92,
+      "end": 2.28
+    },
+    {
+      "word": "every",
+      "start": 2.28,
+      "end": 2.64
+    },
+    {
+      "word": "day,",
+      "start": 2.64,
+      "end": 2.92
+    },
+    {
+      "word": "pumping",
+      "start": 3.22,
+      "end": 3.44
+    },
+    {
+      "word": "nearly",
+      "start": 3.44,
+      "end": 3.74
+    },
+    {
+      "word": "5",
+      "start": 3.74,
+      "end": 4.24
+    },
+    {
+      "word": "liters",
+      "start": 4.24,
+      "end": 4.48
+    },
+    {
+      "word": "of",
+      "start": 4.48,
+      "end": 4.76
+    },
+    {
+      "word": "blood",
+      "start": 4.76,
+      "end": 5.0
+    },
+    {
+      "word": "every",
+      "start": 5.0,
+      "end": 5.24
+    },
+    {
+      "word": "minute.",
+      "start": 5.24,
+      "end": 5.54
+    },
+    {
+      "word": "But",
+      "start": 6.06,
+      "end": 6.32
+    },
+    {
+      "word": "how",
+      "start": 6.32,
+      "end": 6.5
+    },
+    {
+      "word": "does",
+      "start": 6.5,
+      "end": 6.68
+    },
+    {
+      "word": "this",
+      "start": 6.68,
+      "end": 6.88
+    },
+    {
+      "word": "fist",
+      "start": 6.88,
+      "end": 7.18
+    },
+    {
+      "word": "-sized",
+      "start": 7.18,
+      "end": 7.5
+    },
+    {
+      "word": "muscle",
+      "start": 7.5,
+      "end": 7.9
+    },
+    {
+      "word": "actually",
+      "start": 7.9,
+      "end": 8.34
+    },
+    {
+      "word": "work?",
+      "start": 8.34,
+      "end": 8.58
+    },
+    {
+      "word": "The",
+      "start": 9.2,
+      "end": 9.64
+    },
+    {
+      "word": "heart",
+      "start": 9.64,
+      "end": 9.86
+    },
+    {
+      "word": "is",
+      "start": 9.86,
+      "end": 10.04
+    },
+    {
+      "word": "divided",
+      "start": 10.04,
+      "end": 10.36
+    },
+    {
+      "word": "into",
+      "start": 10.36,
+      "end": 10.68
+    },
+    {
+      "word": "four",
+      "start": 10.68,
+      "end": 10.98
+    },
+    {
+      "word": "chambers.",
+      "start": 10.98,
+      "end": 11.32
+    },
+    {
+      "word": "The",
+      "start": 11.8,
+      "end": 11.94
+    },
+    {
+      "word": "two",
+      "start": 11.94,
+      "end": 12.12
+    },
+    {
+      "word": "on",
+      "start": 12.12,
+      "end": 12.26
+    },
+    {
+      "word": "top",
+      "start": 12.26,
+      "end": 12.52
+    },
+    {
+      "word": "are",
+      "start": 12.52,
+      "end": 12.78
+    },
+    {
+      "word": "called",
+      "start": 12.78,
+      "end": 12.98
+    },
+    {
+      "word": "the",
+      "start": 12.98,
+      "end": 13.14
+    },
+    {
+      "word": "right",
+      "start": 13.14,
+      "end": 13.34
+    },
+    {
+      "word": "atrium",
+      "start": 13.34,
+      "end": 13.78
+    },
+    {
+      "word": "and",
+      "start": 13.78,
+      "end": 14.04
+    },
+    {
+      "word": "left",
+      "start": 14.04,
+      "end": 14.22
+    },
+    {
+      "word": "atrium.",
+      "start": 14.22,
+      "end": 14.64
+    },
+    {
+      "word": "The",
+      "start": 15.12,
+      "end": 15.3
+    },
+    {
+      "word": "two",
+      "start": 15.3,
+      "end": 15.46
+    },
+    {
+      "word": "on",
+      "start": 15.46,
+      "end": 15.58
+    },
+    {
+      "word": "the",
+      "start": 15.58,
+      "end": 15.68
+    },
+    {
+      "word": "bottom",
+      "start": 15.68,
+      "end": 15.96
+    },
+    {
+      "word": "are",
+      "start": 15.96,
+      "end": 16.24
+    },
+    {
+      "word": "the",
+      "start": 16.24,
+      "end": 16.34
+    },
+    {
+      "word": "right",
+      "start": 16.34,
+      "end": 16.54
+    },
+    {
+      "word": "ventricle",
+      "start": 16.54,
+      "end": 17.08
+    },
+    {
+      "word": "and",
+      "start": 17.08,
+      "end": 17.3
+    },
+    {
+      "word": "left",
+      "start": 17.3,
+      "end": 17.5
+    },
+    {
+      "word": "ventricle.",
+      "start": 17.5,
+      "end": 18.02
+    },
+    {
+      "word": "Blood",
+      "start": 18.64,
+      "end": 18.9
+    },
+    {
+      "word": "returning",
+      "start": 18.9,
+      "end": 19.32
+    },
+    {
+      "word": "from",
+      "start": 19.32,
+      "end": 19.56
+    },
+    {
+      "word": "your",
+      "start": 19.56,
+      "end": 19.7
+    },
+    {
+      "word": "body",
+      "start": 19.7,
+      "end": 19.98
+    },
+    {
+      "word": "arrives",
+      "start": 19.98,
+      "end": 20.4
+    },
+    {
+      "word": "empty",
+      "start": 20.4,
+      "end": 20.8
+    },
+    {
+      "word": "of",
+      "start": 20.8,
+      "end": 20.96
+    },
+    {
+      "word": "oxygen.",
+      "start": 20.96,
+      "end": 21.28
+    },
+    {
+      "word": "It",
+      "start": 21.8,
+      "end": 21.94
+    },
+    {
+      "word": "enters",
+      "start": 21.94,
+      "end": 22.16
+    },
+    {
+      "word": "the",
+      "start": 22.16,
+      "end": 22.34
+    },
+    {
+      "word": "right",
+      "start": 22.34,
+      "end": 22.48
+    },
+    {
+      "word": "atrium,",
+      "start": 22.48,
+      "end": 22.94
+    },
+    {
+      "word": "then",
+      "start": 23.12,
+      "end": 23.32
+    },
+    {
+      "word": "drops",
+      "start": 23.32,
+      "end": 23.56
+    },
+    {
+      "word": "into",
+      "start": 23.56,
+      "end": 23.8
+    },
+    {
+      "word": "the",
+      "start": 23.8,
+      "end": 23.94
+    },
+    {
+      "word": "right",
+      "start": 23.94,
+      "end": 24.1
+    },
+    {
+      "word": "ventricle,",
+      "start": 24.1,
+      "end": 24.58
+    },
+    {
+      "word": "which",
+      "start": 24.88,
+      "end": 25.1
+    },
+    {
+      "word": "pumps",
+      "start": 25.1,
+      "end": 25.32
+    },
+    {
+      "word": "it",
+      "start": 25.32,
+      "end": 25.48
+    },
+    {
+      "word": "straight",
+      "start": 25.48,
+      "end": 25.78
+    },
+    {
+      "word": "to",
+      "start": 25.78,
+      "end": 25.96
+    },
+    {
+      "word": "the",
+      "start": 25.96,
+      "end": 26.08
+    },
+    {
+      "word": "lungs.",
+      "start": 26.08,
+      "end": 26.32
+    },
+    {
+      "word": "In",
+      "start": 27.04,
+      "end": 27.3
+    },
+    {
+      "word": "the",
+      "start": 27.3,
+      "end": 27.42
+    },
+    {
+      "word": "lungs,",
+      "start": 27.42,
+      "end": 27.72
+    },
+    {
+      "word": "the",
+      "start": 27.92,
+      "end": 27.98
+    },
+    {
+      "word": "blood",
+      "start": 27.98,
+      "end": 28.18
+    },
+    {
+      "word": "picks",
+      "start": 28.18,
+      "end": 28.48
+    },
+    {
+      "word": "up",
+      "start": 28.48,
+      "end": 28.64
+    },
+    {
+      "word": "fresh",
+      "start": 28.64,
+      "end": 28.88
+    },
+    {
+      "word": "oxygen.",
+      "start": 28.88,
+      "end": 29.36
+    },
+    {
+      "word": "It",
+      "start": 29.84,
+      "end": 29.92
+    },
+    {
+      "word": "travels",
+      "start": 29.92,
+      "end": 30.16
+    },
+    {
+      "word": "back",
+      "start": 30.16,
+      "end": 30.48
+    },
+    {
+      "word": "to",
+      "start": 30.48,
+      "end": 30.64
+    },
+    {
+      "word": "the",
+      "start": 30.64,
+      "end": 30.76
+    },
+    {
+      "word": "left",
+      "start": 30.76,
+      "end": 30.94
+    },
+    {
+      "word": "atrium,",
+      "start": 30.94,
+      "end": 31.34
+    },
+    {
+      "word": "then",
+      "start": 31.64,
+      "end": 31.76
+    },
+    {
+      "word": "falls",
+      "start": 31.76,
+      "end": 32.02
+    },
+    {
+      "word": "into",
+      "start": 32.02,
+      "end": 32.26
+    },
+    {
+      "word": "the",
+      "start": 32.26,
+      "end": 32.46
+    },
+    {
+      "word": "left",
+      "start": 32.46,
+      "end": 32.6
+    },
+    {
+      "word": "ventricle,",
+      "start": 32.6,
+      "end": 33.12
+    },
+    {
+      "word": "the",
+      "start": 33.46,
+      "end": 33.56
+    },
+    {
+      "word": "strongest",
+      "start": 33.56,
+      "end": 33.98
+    },
+    {
+      "word": "chamber",
+      "start": 33.98,
+      "end": 34.36
+    },
+    {
+      "word": "of",
+      "start": 34.36,
+      "end": 34.54
+    },
+    {
+      "word": "the",
+      "start": 34.54,
+      "end": 34.66
+    },
+    {
+      "word": "heart.",
+      "start": 34.66,
+      "end": 34.84
+    },
+    {
+      "word": "With",
+      "start": 35.36,
+      "end": 35.56
+    },
+    {
+      "word": "a",
+      "start": 35.56,
+      "end": 35.68
+    },
+    {
+      "word": "single",
+      "start": 35.68,
+      "end": 36.02
+    },
+    {
+      "word": "powerful",
+      "start": 36.02,
+      "end": 36.5
+    },
+    {
+      "word": "squeeze,",
+      "start": 36.5,
+      "end": 36.9
+    },
+    {
+      "word": "the",
+      "start": 37.44,
+      "end": 37.48
+    },
+    {
+      "word": "left",
+      "start": 37.48,
+      "end": 37.68
+    },
+    {
+      "word": "ventricle",
+      "start": 37.68,
+      "end": 38.2
+    },
+    {
+      "word": "launches",
+      "start": 38.2,
+      "end": 38.56
+    },
+    {
+      "word": "oxygen",
+      "start": 38.56,
+      "end": 39.08
+    },
+    {
+      "word": "-rich",
+      "start": 39.08,
+      "end": 39.28
+    },
+    {
+      "word": "blood",
+      "start": 39.28,
+      "end": 39.64
+    },
+    {
+      "word": "through",
+      "start": 39.64,
+      "end": 40.0
+    },
+    {
+      "word": "the",
+      "start": 40.0,
+      "end": 40.16
+    },
+    {
+      "word": "aorta,",
+      "start": 40.16,
+      "end": 40.52
+    },
+    {
+      "word": "sending",
+      "start": 40.98,
+      "end": 41.18
+    },
+    {
+      "word": "it",
+      "start": 41.18,
+      "end": 41.36
+    },
+    {
+      "word": "to",
+      "start": 41.36,
+      "end": 41.48
+    },
+    {
+      "word": "every",
+      "start": 41.48,
+      "end": 41.76
+    },
+    {
+      "word": "cell",
+      "start": 41.76,
+      "end": 42.02
+    },
+    {
+      "word": "in",
+      "start": 42.02,
+      "end": 42.14
+    },
+    {
+      "word": "your",
+      "start": 42.14,
+      "end": 42.24
+    },
+    {
+      "word": "body.",
+      "start": 42.24,
+      "end": 42.48
+    },
+    {
+      "word": "This",
+      "start": 43.28,
+      "end": 43.48
+    },
+    {
+      "word": "entire",
+      "start": 43.48,
+      "end": 43.9
+    },
+    {
+      "word": "round",
+      "start": 43.9,
+      "end": 44.2
+    },
+    {
+      "word": "trip",
+      "start": 44.2,
+      "end": 44.44
+    },
+    {
+      "word": "takes",
+      "start": 44.44,
+      "end": 44.8
+    },
+    {
+      "word": "less",
+      "start": 44.8,
+      "end": 45.08
+    },
+    {
+      "word": "than",
+      "start": 45.08,
+      "end": 45.3
+    },
+    {
+      "word": "one",
+      "start": 45.3,
+      "end": 45.46
+    },
+    {
+      "word": "second,",
+      "start": 45.46,
+      "end": 45.76
+    },
+    {
+      "word": "and",
+      "start": 46.34,
+      "end": 46.52
+    },
+    {
+      "word": "your",
+      "start": 46.52,
+      "end": 46.64
+    },
+    {
+      "word": "heart",
+      "start": 46.64,
+      "end": 46.86
+    },
+    {
+      "word": "will",
+      "start": 46.86,
+      "end": 47.0
+    },
+    {
+      "word": "repeat",
+      "start": 47.0,
+      "end": 47.32
+    },
+    {
+      "word": "it",
+      "start": 47.32,
+      "end": 47.46
+    },
+    {
+      "word": "roughly",
+      "start": 47.46,
+      "end": 47.74
+    },
+    {
+      "word": "2",
+      "start": 47.74,
+      "end": 48.08
+    },
+    {
+      "word": ".5",
+      "start": 48.08,
+      "end": 48.68
+    },
+    {
+      "word": "billion",
+      "start": 48.68,
+      "end": 49.02
+    },
+    {
+      "word": "times",
+      "start": 49.02,
+      "end": 49.44
+    },
+    {
+      "word": "in",
+      "start": 49.44,
+      "end": 49.66
+    },
+    {
+      "word": "your",
+      "start": 49.66,
+      "end": 49.76
+    },
+    {
+      "word": "lifetime.",
+      "start": 49.76,
+      "end": 50.04
+    }
+  ]
+}
