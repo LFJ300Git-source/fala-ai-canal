@@ -1,0 +1,32 @@
+{
+  "name": "aulacraft-spike",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "pipeline": "npx ts-node src/pipeline.ts",
+    "render": "npx ts-node src/render-local.ts",
+    "preview": "npx remotion preview src/index.ts"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.98.0",
+    "@fal-ai/client": "^1.0.0",
+    "@google/generative-ai": "^0.21.0",
+    "@react-three/fiber": "^9.6.1",
+    "@remotion/bundler": "4.0.464",
+    "@remotion/google-fonts": "4.0.464",
+    "@remotion/lambda": "4.0.464",
+    "@remotion/renderer": "4.0.464",
+    "@remotion/three": "4.0.464",
+    "@types/three": "^0.184.1",
+    "axios": "^1.6.0",
+    "dotenv": "^16.0.0",
+    "remotion": "4.0.464",
+    "three": "^0.184.0",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.0.0"
+  }
+}
