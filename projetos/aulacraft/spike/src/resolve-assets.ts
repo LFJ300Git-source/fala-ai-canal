@@ -14,10 +14,8 @@ import { fetchStock } from './fetch-stock';
 import { generateAbstract } from './generate-abstract';
 import { buildAiPrompt } from './build-ai-prompt';
 import { getAudioDurationSeconds } from './audio-duration';
+import { DEFAULT_WORK_DIR, getJobPaths } from './paths';
 import type { Storyboard, StoryboardScene } from './storyboard-schema';
-
-const STORYBOARD_PATH = path.resolve(__dirname, '../assets/storyboard.json');
-const RESOLVED_PATH = path.resolve(__dirname, '../assets/storyboard.resolved.json');
 
 interface Failure {
   index: number;
@@ -25,10 +23,12 @@ interface Failure {
   reason: string;
 }
 
-export async function resolveAssets(): Promise<void> {
-  console.log(`\n[resolve-assets] Lendo ${STORYBOARD_PATH}...\n`);
+export async function resolveAssets(workDir: string = DEFAULT_WORK_DIR): Promise<void> {
+  const { storyboardPath, resolvedPath } = getJobPaths(workDir);
 
-  const raw = fs.readFileSync(STORYBOARD_PATH, 'utf-8');
+  console.log(`\n[resolve-assets] Lendo ${storyboardPath}...\n`);
+
+  const raw = fs.readFileSync(storyboardPath, 'utf-8');
   const storyboard = JSON.parse(raw) as Storyboard;
 
   const scenes = storyboard.scenes;
@@ -62,7 +62,7 @@ export async function resolveAssets(): Promise<void> {
           }
 
           console.log(`  [${i}] ${type} — buscando stock: "${stockQuery}"`);
-          const videoPath = await fetchStock(stockQuery);
+          const videoPath = await fetchStock(stockQuery, workDir);
           props.videoSrc = videoPath;
           resolved++;
           console.log(`       ✓ resolvido: ${videoPath}`);
@@ -71,7 +71,7 @@ export async function resolveAssets(): Promise<void> {
         // Medir duração se ainda não temos (idempotência: se temos, não meça de novo)
         if (!clipDurationAlreadyResolved) {
           try {
-            const diskPath = path.resolve(__dirname, '../assets', props.videoSrc);
+            const diskPath = path.join(workDir, props.videoSrc);
             const durationSeconds = getAudioDurationSeconds(diskPath);
             (scene as any).clipDurationInSeconds = durationSeconds;
             console.log(`       ✓ duração medida: ${durationSeconds.toFixed(2)}s (${Math.round(durationSeconds * 30)} frames @ 30fps)`);
@@ -93,7 +93,7 @@ export async function resolveAssets(): Promise<void> {
         console.log(`  [${i}] ${type} — gerando fundo de IA`);
         const prompt = await buildAiPrompt(scene);
         const outputName = `ai/ai-${i}-${type}.png`;
-        const bgPath = await generateAbstract(prompt, outputName);
+        const bgPath = await generateAbstract(prompt, outputName, workDir);
         props.backgroundSrc = bgPath;
         resolved++;
         console.log(`       ✓ resolvido: ${bgPath}`);
@@ -111,7 +111,7 @@ export async function resolveAssets(): Promise<void> {
   }
 
   // Escreve o storyboard resolvido (com falhas parciais ou não)
-  console.log(`\n[resolve-assets] Escrevendo ${RESOLVED_PATH}...\n`);
+  console.log(`\n[resolve-assets] Escrevendo ${resolvedPath}...\n`);
   const resolved_storyboard: Storyboard = {
     version: storyboard.version,
     totalDurationInFrames: storyboard.totalDurationInFrames,
@@ -120,7 +120,7 @@ export async function resolveAssets(): Promise<void> {
     scenes: storyboard.scenes,
   };
 
-  fs.writeFileSync(RESOLVED_PATH, JSON.stringify(resolved_storyboard, null, 2), 'utf-8');
+  fs.writeFileSync(resolvedPath, JSON.stringify(resolved_storyboard, null, 2), 'utf-8');
 
   // Relatório final
   console.log(`=== RESOLVE-ASSETS REPORT ===\n`);

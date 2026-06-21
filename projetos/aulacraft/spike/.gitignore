@@ -1,6 +1,7 @@
 .env
 node_modules/
 output/
+jobs/
 assets/narration.mp3
 assets/image_*.png
 assets/music.mp3

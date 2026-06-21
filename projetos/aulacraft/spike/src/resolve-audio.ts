@@ -4,13 +4,11 @@ import * as path from 'path';
 import { execSync } from 'child_process';
 import { generateNarrationFromText } from './tts';
 import { getAudioDurationSeconds } from './audio-duration';
+import { DEFAULT_WORK_DIR, getJobPaths } from './paths';
 import type { Storyboard, StoryboardScene } from './storyboard-schema';
 
 const FPS = 30;
 const MIN_FRAMES = 45;
-const STORYBOARD_PATH = path.resolve(__dirname, '../assets/storyboard.resolved.json');
-const NARRATION_DIR = path.resolve(__dirname, '../assets/narration');
-const FINAL_AUDIO_PATH = path.resolve(__dirname, '../assets/narration.mp3');
 const TTS_REQUESTS_PER_MINUTE = 3;
 const TTS_THROTTLE_MS = Math.ceil(60000 / TTS_REQUESTS_PER_MINUTE);
 const sleep = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
@@ -29,10 +27,12 @@ interface FailureRecord {
   reason: string;
 }
 
-export async function resolveAudio(): Promise<void> {
-  console.log(`\n[resolve-audio] Lendo ${STORYBOARD_PATH}...\n`);
+export async function resolveAudio(workDir: string = DEFAULT_WORK_DIR): Promise<void> {
+  const { resolvedPath, narrationDir, finalAudioPath } = getJobPaths(workDir);
 
-  const raw = fs.readFileSync(STORYBOARD_PATH, 'utf-8');
+  console.log(`\n[resolve-audio] Lendo ${resolvedPath}...\n`);
+
+  const raw = fs.readFileSync(resolvedPath, 'utf-8');
   const storyboard = JSON.parse(raw) as Storyboard;
 
   const scenes = storyboard.scenes;
@@ -53,7 +53,7 @@ export async function resolveAudio(): Promise<void> {
         throw new Error('narrationText is empty');
       }
 
-      const scenePath = path.join(NARRATION_DIR, `scene-${i}.mp3`);
+      const scenePath = path.join(narrationDir, `scene-${i}.mp3`);
 
       // Check for idempotency
       let durationSeconds: number;
@@ -100,7 +100,7 @@ export async function resolveAudio(): Promise<void> {
     console.log(`\n[resolve-audio] Concatenando ${results.length} cenas em trilha única...\n`);
 
     // Create concat list in correct order
-    const concatListPath = path.join(NARRATION_DIR, 'concat-list.txt');
+    const concatListPath = path.join(narrationDir, 'concat-list.txt');
     const concatLines = results.map(
       (r) => `file '${path.basename(r.narrationPath)}'`
     );
@@ -108,9 +108,9 @@ export async function resolveAudio(): Promise<void> {
     fs.writeFileSync(concatListPath, concatLines.join('\n'), 'utf-8');
 
     try {
-      const cmd = `ffmpeg -y -f concat -safe 0 -i "${concatListPath}" -c copy "${FINAL_AUDIO_PATH}"`;
+      const cmd = `ffmpeg -y -f concat -safe 0 -i "${concatListPath}" -c copy "${finalAudioPath}"`;
       execSync(cmd, { stdio: 'inherit' });
-      console.log(`\n✅ Trilha gerada em ${FINAL_AUDIO_PATH}`);
+      console.log(`\n✅ Trilha gerada em ${finalAudioPath}`);
 
       audioUrl = 'narration.mp3';
       // Recalculate totalDurationInFrames with all processed scenes (zero failures means all have real duration)
@@ -124,14 +124,14 @@ export async function resolveAudio(): Promise<void> {
   // If failures.length > 0: totalDurationInFrames is NOT recalculated; it preserves the original value
 
   // Update storyboard
-  console.log(`\n[resolve-audio] Atualizando ${STORYBOARD_PATH}...\n`);
+  console.log(`\n[resolve-audio] Atualizando ${resolvedPath}...\n`);
   const updated: Storyboard = {
     ...storyboard,
     audioUrl,
     totalDurationInFrames,
   };
 
-  fs.writeFileSync(STORYBOARD_PATH, JSON.stringify(updated, null, 2), 'utf-8');
+  fs.writeFileSync(resolvedPath, JSON.stringify(updated, null, 2), 'utf-8');
 
   // Report
   console.log(`=== RESOLVE-AUDIO REPORT ===\n`);

@@ -8,6 +8,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as https from 'https';
 import { fal } from '@fal-ai/client';
+import { DEFAULT_WORK_DIR } from './paths';
 
 type ImageSize =
   | 'square_hd'
@@ -34,8 +35,6 @@ const PRESETS: Record<string, Preset> = {
   },
 };
 
-const OUTPUT_DIR = path.resolve(__dirname, '..', 'assets');
-
 async function downloadImage(url: string, destPath: string): Promise<void> {
   return new Promise((resolve, reject) => {
     const file = fs.createWriteStream(destPath);
@@ -59,8 +58,10 @@ async function downloadImage(url: string, destPath: string): Promise<void> {
 
 export async function generateAbstract(
   prompt: string,
-  outputName: string
+  outputName: string,
+  workDir: string = DEFAULT_WORK_DIR
 ): Promise<string> {
+  const OUTPUT_DIR = workDir;
   if (!process.env.FAL_KEY) {
     throw new Error('FAL_KEY não está definida no .env');
   }

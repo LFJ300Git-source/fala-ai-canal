@@ -5,14 +5,7 @@ import { runGenerateStoryboard } from './generate-storyboard';
 import { resolveAssets } from './resolve-assets';
 import { resolveAudio } from './resolve-audio';
 import { runRender } from './render-local';
-
-const ASSETS_DIR = path.resolve(__dirname, '../assets');
-const OUTPUT_DIR = path.resolve(__dirname, '../output');
-const SCRIPT_PATH = path.join(ASSETS_DIR, 'script.txt');
-const STORYBOARD_PATH = path.join(ASSETS_DIR, 'storyboard.json');
-const RESOLVED_PATH = path.join(ASSETS_DIR, 'storyboard.resolved.json');
-const NARRATION_PATH = path.join(ASSETS_DIR, 'narration.mp3');
-const OUTPUT_PATH = path.join(OUTPUT_DIR, 'lesson.mp4');
+import { DEFAULT_WORK_DIR, getJobPaths } from './paths';
 
 type Step = {
   label: string;
@@ -37,31 +30,39 @@ async function runStep(step: Step, index: number, total: number): Promise<void> 
   console.log(`✅ ${step.label} OK (${secs}s)`);
 }
 
-export async function runPipeline(): Promise<string> {
-  console.log('\n🎬 AulaCraft Pipeline — geração end-to-end\n');
-  fs.mkdirSync(OUTPUT_DIR, { recursive: true });
+export async function runPipeline(workDir: string = DEFAULT_WORK_DIR): Promise<string> {
+  const paths = getJobPaths(workDir);
 
-  if (!fs.existsSync(SCRIPT_PATH)) {
-    throw new Error(`Input ausente: ${SCRIPT_PATH}. Coloque o roteiro em assets/script.txt antes de rodar.`);
+  console.log('\n🎬 AulaCraft Pipeline — geração end-to-end\n');
+  console.log(`📂 workDir: ${workDir}`);
+
+  // Garante a estrutura de dirs do job (recursive cria o workDir tambem)
+  fs.mkdirSync(paths.stockDir, { recursive: true });
+  fs.mkdirSync(paths.aiDir, { recursive: true });
+  fs.mkdirSync(paths.narrationDir, { recursive: true });
+  fs.mkdirSync(path.dirname(paths.outputPath), { recursive: true });
+
+  if (!fs.existsSync(paths.scriptPath)) {
+    throw new Error(`Input ausente: ${paths.scriptPath}. Coloque o roteiro em script.txt antes de rodar.`);
   }
 
   const steps: Step[] = [
     {
       label: 'generate-storyboard (roteiro -> storyboard.json)',
-      fn: runGenerateStoryboard,
-      expectOutput: STORYBOARD_PATH,
+      fn: () => runGenerateStoryboard(workDir),
+      expectOutput: paths.storyboardPath,
     },
     {
       label: 'resolve-assets (stock + IA -> storyboard.resolved.json)',
-      fn: resolveAssets,
-      expectOutput: RESOLVED_PATH,
+      fn: () => resolveAssets(workDir),
+      expectOutput: paths.resolvedPath,
     },
     {
       label: 'resolve-audio (narracao + trilha)',
-      fn: resolveAudio,
-      expectOutput: NARRATION_PATH,
+      fn: () => resolveAudio(workDir),
+      expectOutput: paths.finalAudioPath,
       verify: () => {
-        const sb = JSON.parse(fs.readFileSync(RESOLVED_PATH, 'utf-8')) as { audioUrl?: string };
+        const sb = JSON.parse(fs.readFileSync(paths.resolvedPath, 'utf-8')) as { audioUrl?: string };
         if (!sb.audioUrl) {
           throw new Error('storyboard.resolved.json sem audioUrl apos resolve-audio');
         }
@@ -69,8 +70,8 @@ export async function runPipeline(): Promise<string> {
     },
     {
       label: 'render (Remotion -> lesson.mp4)',
-      fn: runRender,
-      expectOutput: OUTPUT_PATH,
+      fn: () => runRender(workDir),
+      expectOutput: paths.outputPath,
     },
   ];
 
@@ -81,12 +82,14 @@ export async function runPipeline(): Promise<string> {
   const total = ((Date.now() - t0) / 1000).toFixed(1);
 
   console.log(`\n🎉 Pipeline completo em ${total}s`);
-  console.log(`📍 Video: ${OUTPUT_PATH}`);
-  return OUTPUT_PATH;
+  console.log(`📍 Video: ${paths.outputPath}`);
+  return paths.outputPath;
 }
 
 if (require.main === module) {
-  runPipeline().catch((err) => {
+  const arg = process.argv[2];
+  const workDir = arg ? path.resolve(arg) : DEFAULT_WORK_DIR;
+  runPipeline(workDir).catch((err) => {
     console.error('\n❌', err.message);
     process.exit(1);
   });

@@ -3,25 +3,25 @@ import * as path from 'path';
 import * as fs from 'fs';
 import { bundle } from '@remotion/bundler';
 import { renderMedia, selectComposition } from '@remotion/renderer';
+import { DEFAULT_WORK_DIR, getJobPaths } from './paths';
 import type { Storyboard } from './storyboard-schema';
 
-const ASSETS_DIR = path.resolve(__dirname, '../assets');
-const OUTPUT_DIR = path.resolve(__dirname, '../output');
-const STORYBOARD_PATH = path.join(ASSETS_DIR, 'storyboard.resolved.json');
-const OUTPUT_PATH = path.join(OUTPUT_DIR, 'lesson.mp4');
 const COMPOSITION_ID = 'LessonRenderer';
 const ENTRY_POINT = path.resolve(__dirname, './index.ts');
 
-export async function runRender() {
+export async function runRender(workDir: string = DEFAULT_WORK_DIR) {
+  const { resolvedPath, outputPath } = getJobPaths(workDir);
+  console.log(`📂 publicDir (workDir): ${workDir}`);
+
   console.log('\n🎬 AulaCraft Local Render — Lesson (LessonRenderer)\n');
-  fs.mkdirSync(OUTPUT_DIR, { recursive: true });
+  fs.mkdirSync(path.dirname(outputPath), { recursive: true });
 
   // Read resolved storyboard
-  if (!fs.existsSync(STORYBOARD_PATH)) {
-    throw new Error(`Missing ${STORYBOARD_PATH}. Run resolve-audio.ts first (Phase 4b).`);
+  if (!fs.existsSync(resolvedPath)) {
+    throw new Error(`Missing ${resolvedPath}. Run resolve-audio.ts first (Phase 4b).`);
   }
 
-  const storyboard = JSON.parse(fs.readFileSync(STORYBOARD_PATH, 'utf-8')) as Storyboard;
+  const storyboard = JSON.parse(fs.readFileSync(resolvedPath, 'utf-8')) as Storyboard;
   console.log(`📋 Loaded storyboard: ${storyboard.scenes.length} scenes, ${storyboard.totalDurationInFrames} frames`);
 
   // Validation: audioUrl must be present
@@ -51,7 +51,7 @@ export async function runRender() {
   console.log('\n📦 Bundling Remotion composition...');
   const serveUrl = await bundle({
     entryPoint: ENTRY_POINT,
-    publicDir: ASSETS_DIR,
+    publicDir: workDir,
     onProgress: (p) => process.stdout.write(`\r   Bundling... ${p}%`),
   });
   console.log('\n✅ Bundle ready');
@@ -69,19 +69,21 @@ export async function runRender() {
     composition,
     serveUrl,
     codec: 'h264',
-    outputLocation: OUTPUT_PATH,
+    outputLocation: outputPath,
     inputProps,
     onProgress: ({ progress }) => {
       process.stdout.write(`\r   Rendering... ${Math.round(progress * 100)}%`);
     },
   });
 
-  console.log(`\n\n🎉 Lesson saved at: ${OUTPUT_PATH}`);
+  console.log(`\n\n🎉 Lesson saved at: ${outputPath}`);
 }
 
 if (require.main === module) {
-  runRender().catch((err) => {
-    console.error('\n❌ Render failed:', err.message);
+  const arg = process.argv[2];
+  const workDir = arg ? path.resolve(arg) : DEFAULT_WORK_DIR;
+  runRender(workDir).catch((err) => {
+    console.error('\n❌', err.message);
     process.exit(1);
   });
 }

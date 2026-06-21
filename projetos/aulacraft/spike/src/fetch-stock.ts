@@ -18,6 +18,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as https from 'https';
 import { execSync } from 'child_process';
+import { DEFAULT_WORK_DIR } from './paths';
 
 function downloadFile(url: string, outputPath: string): Promise<void> {
   return new Promise((resolve, reject) => {
@@ -48,7 +49,6 @@ function downloadFile(url: string, outputPath: string): Promise<void> {
 }
 
 const PEXELS_API_URL = 'https://api.pexels.com/videos/search';
-const OUTPUT_DIR = path.join(process.cwd(), 'assets', 'stock');
 
 type PexelsVideoFile = {
   id: number;
@@ -105,7 +105,8 @@ function pickBestVideoFile(files: PexelsVideoFile[]): PexelsVideoFile {
   return [...videoFiles].sort((a, b) => b.width - a.width)[0];
 }
 
-export async function fetchStock(query: string): Promise<string> {
+export async function fetchStock(query: string, workDir: string = DEFAULT_WORK_DIR): Promise<string> {
+  const OUTPUT_DIR = path.join(workDir, 'stock');
   const apiKey = process.env.PEXELS_API_KEY;
   if (!apiKey) {
     throw new Error('PEXELS_API_KEY não encontrada no .env');
