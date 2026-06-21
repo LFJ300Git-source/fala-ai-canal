@@ -1,0 +1,74 @@
+{
+  "version": 1,
+  "totalDurationInFrames": 1290,
+  "audioUrl": null,
+  "scenes": [
+    {
+      "type": "AIOpenerScene",
+      "durationInFrames": 240,
+      "props": {
+        "backgroundSrc": "test-opener-bg.png",
+        "eyebrow": "AULA 01",
+        "title": "A DECISÃO INVISÍVEL",
+        "subtitle": "Por que toda escolha financeira começa antes de você abrir o app do banco."
+      }
+    },
+    {
+      "type": "StockHeroScene",
+      "durationInFrames": 180,
+      "props": {
+        "videoSrc": "test-stock-30fps.mp4",
+        "caption": "Toda decisão financeira começa com uma escolha invisível.",
+        "showBranding": true,
+        "gradeIntensity": 1
+      }
+    },
+    {
+      "type": "TypeImpactScene",
+      "durationInFrames": 180,
+      "props": {
+        "preLine": "PARTE 01",
+        "number": "01",
+        "numberLabel": "PRINCÍPIO",
+        "words": [
+          { "text": "A maioria", "emphasis": "normal" },
+          { "text": "fracassa", "emphasis": "display-huge" },
+          { "text": "porque", "emphasis": "normal" },
+          { "text": "não", "emphasis": "normal" },
+          { "text": "decide", "emphasis": "editorial-italic" }
+        ]
+      }
+    },
+    {
+      "type": "StockOverlayScene",
+      "durationInFrames": 210,
+      "props": {
+        "videoSrc": "test-stock-30fps.mp4",
+        "eyebrow": "O QUE NINGUÉM TE CONTA",
+        "impact": "VOCÊ JÁ DECIDIU",
+        "gradeIntensity": 1
+      }
+    },
+    {
+      "type": "TypeQuoteScene",
+      "durationInFrames": 210,
+      "props": {
+        "quote": "O preço é o que você paga. O valor é o que você recebe.",
+        "author": "Warren Buffett",
+        "authorTitle": "Investidor, Berkshire Hathaway"
+      }
+    },
+    {
+      "type": "AICloserScene",
+      "durationInFrames": 270,
+      "props": {
+        "backgroundSrc": "test-opener-bg.png",
+        "eyebrow": "AULA 01 — FIM",
+        "title": "A escolha é sua.",
+        "ctaLabel": "PRÓXIMA AULA",
+        "ctaText": "A ARMADILHA DOS RICOS",
+        "brandName": "AULACRAFT"
+      }
+    }
+  ]
+}
