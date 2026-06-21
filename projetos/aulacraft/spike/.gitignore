@@ -1,0 +1,9 @@
+.env
+node_modules/
+output/
+assets/narration.mp3
+assets/image_*.png
+assets/music.mp3
+assets/mixed_audio.mp3
+dist/
+*.log

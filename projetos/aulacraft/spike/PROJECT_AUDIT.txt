@@ -1,0 +1,185 @@
+AULACRAFT SPIKE — AUDITORIA DO ESTADO ATUAL
+Data: 2026-05-23
+Autor: Claude (auditoria após 7 iterações fracassadas)
+
+=======================================================================
+1. ESTRUTURA ATUAL DE PASTAS
+=======================================================================
+
+spike/
+├── package.json                    # deps: remotion, @remotion/three, anthropic, fal-ai, gemini
+├── tsconfig.json
+├── .env                            # API keys (Gemini, fal.ai, Anthropic, AWS)
+├── remotion.config.ts
+├── assets/                         # tudo aqui é estático, servido como publicDir
+│   ├── script.txt                  # script de entrada
+│   ├── narration.mp3               # gerado pelo Gemini TTS
+│   ├── mixed_audio.mp3             # narration + music mixados via ffmpeg
+│   ├── music.mp3                   # background music
+│   ├── narration.json              # Whisper word-level timestamps
+│   ├── storyboard.json             # gerado pelo Claude Sonnet 4.6
+│   ├── heart_anatomy.png           # gerado via fal.ai
+│   ├── heart_lungs.png             # gerado via fal.ai
+│   ├── blob_1/2/3.png              # blobs iridescentes via fal.ai
+│   └── image_1/2/3.png             # imagens antigas (não usadas no v7)
+├── src/
+│   ├── index.ts                    # registerRoot
+│   ├── Root.tsx                    # <Composition id="LessonSummary">
+│   ├── pipeline.ts                 # script orquestrador antigo (Lambda)
+│   ├── render-local.ts             # render local atual (usado)
+│   ├── tts.ts                      # Gemini TTS wrapper
+│   ├── images.ts                   # fal.ai wrapper
+│   ├── music.ts                    # ffmpeg mix wrapper
+│   ├── storyboard.ts               # Claude API wrapper + schema
+│   ├── generate-storyboard.ts      # script entry pra rodar storyboard gen
+│   ├── regen-narration.ts          # script entry pra regerar TTS
+│   ├── regen-images.ts             # script entry pra regerar imagens
+│   └── compositions/
+│       ├── LessonSummary.tsx       # MAIN — orquestra cenas a partir do storyboard
+│       ├── canva_v7.tsx            # templates ATIVOS (v7 Canva-style)
+│       ├── motion.tsx              # componentes velhos v3 (motion graphics)
+│       ├── motion2d_v4.tsx         # componentes velhos v4 (rainbow disaster)
+│       ├── three3d.tsx             # componentes velhos v4 (3D shapes decorativos)
+│       ├── three3d_v5.tsx          # componentes velhos v5 (restrição)
+│       ├── text_v5.tsx             # componentes velhos v5
+│       ├── heart3d.tsx             # componentes velhos v6 (wireframe Iron Man HUD)
+│       ├── scenes_v6.tsx           # componentes velhos v6
+│       └── palette.ts              # paleta velha v4
+└── scripts/
+    └── transcribe.py               # roda Whisper local
+
+OBSERVAÇÃO: tem LIXO das iterações velhas acumulado em compositions/
+(motion.tsx, motion2d_v4.tsx, three3d.tsx, three3d_v5.tsx, text_v5.tsx,
+heart3d.tsx, scenes_v6.tsx, palette.ts) — só canva_v7.tsx está sendo
+importado pelo LessonSummary atual.
+
+
+=======================================================================
+2. COMO O VÍDEO É MONTADO HOJE?
+=======================================================================
+
+Pipeline em 4 etapas, executadas separadamente:
+
+1. regen-narration.ts
+   - Lê script.txt → Gemini TTS gera narration.mp3
+   - ffmpeg mixa com music.mp3 → salva mixed_audio.mp3
+
+2. scripts/transcribe.py
+   - Whisper local processa narration.mp3
+   - Salva narration.json (palavras com timestamps)
+
+3. generate-storyboard.ts
+   - Claude Sonnet 4.6 recebe script.txt + narration.json
+   - Retorna storyboard.json (6 cenas com template + caption + dados
+     específicos por tipo)
+
+4. render-local.ts (bundle + render do Remotion)
+   - Carrega storyboard.json + mixed_audio.mp3 → passa como inputProps
+   - Remotion entra em Root.tsx → <Composition id="LessonSummary">
+   - LessonSummary.tsx é o cara que monta a cena: itera
+     storyboard.scenes[], pra cada uma cria <Sequence> e chama
+     <RenderScene> que faz switch no template e delega pra um dos 6
+     componentes do canva_v7.tsx.
+
+RESUMO: a cena é montada em LessonSummary.tsx (orquestrador) +
+canva_v7.tsx (templates de cada tipo de cena).
+
+
+=======================================================================
+3. ONDE ESTÃO CORES, FONTES E TAMANHOS HOJE?
+=======================================================================
+
+Está ESPALHADO E DUPLICADO em 3 lugares — esse é um problema:
+
+- canva_v7.tsx linhas 18-31: definição "oficial" da paleta (PALETTE
+  object) + fontes (SANS, SERIF). Mas só é fonte de verdade dos
+  componentes Canva.
+
+- storyboard.json: Claude inventa accentColor por cena com hex strings
+  (vindos do prompt VALID_COLORS = ['#DC2626', '#0EA5E9', '#A855F7',
+  '#F59E0B', '#10B981', '#EC4899'] no storyboard.ts linha 59). OUTRO
+  conjunto, sem relação com o PALETTE do canva_v7.
+
+- Inline em cada componente: tamanhos de fonte, padding, border-radius,
+  shadow, espaçamento. Toda decisão tipográfica/layout está hardcoded
+  direto no JSX (ex.: fontSize: 130 no título, fontSize: 42 no caption,
+  padding: '60px 130px 90px' no caption strip).
+
+- Arquivos velhos não usados (palette.ts, motion.tsx, etc.): ainda têm
+  constantes que ninguém lê mais.
+
+NÃO EXISTE DESIGN TOKENS. NÃO EXISTE theme.ts. Cada número mágico está
+colado no lugar onde é usado.
+
+
+=======================================================================
+4. EXISTE SISTEMA DE TEMPLATES?
+=======================================================================
+
+Existe parcialmente, mas é frágil:
+
+OK Há 6 templates definidos em canva_v7.tsx: CanvaTitleScene,
+   CanvaAnnotatedHeartScene, CanvaFlowDiagramScene, CanvaStatScene,
+   CanvaHeroHeartScene, CanvaClosingScene.
+
+OK LessonSummary roteia baseado em scene.template (string enum no
+   storyboard).
+
+PROBLEMA: cada template tem layout/cores/fontes hardcoded — não há base
+   compartilhada (<SceneFrame> com header/footer/blobs/captions
+   reutilizável). Cada template re-implementa <TopographicBackground> +
+   <AtmosphericBlobs> + <CanvaCaption> no JSX.
+
+PROBLEMA: a interface do storyboard é específica pro tópico CORAÇÃO —
+   AnatomyPart enum (right-atrium, aorta, etc.) está hardcoded no
+   schema. Pra trocar pro próximo tópico (ex.: sistema solar) precisa
+   reescrever schema + componentes.
+
+PROBLEMA: não há template pra cenas que ainda não fizemos (tipo
+   "split-comparison", "two-image", "quote scene"). Adicionar é
+   trabalho manual nos 2 lugares (storyboard schema + composition).
+
+VEREDITO: cada vídeo NÃO é montado do zero, mas o sistema de templates
+é colado nos 6 que improvisei nas iterações, sem abstração.
+
+
+=======================================================================
+5. O QUE ESTÁ FAZENDO O RESULTADO FICAR VISUALMENTE RUIM?
+=======================================================================
+
+Honestamente, 5 problemas em ordem de gravidade:
+
+1. ASSETS GERADOS PELO FAL.AI VÊM COM FUNDO ESCURO RETANGULAR PRÓPRIO
+   (heart_anatomy.png tem background quadrado dark) que EU NUNCA
+   PROCESSEI. Quando coloco a imagem na cena, vejo um retângulo
+   desfigurado em vez de um coração isolado. Devia ter rodado remoção
+   de background (rembg, ou usar fal.ai com mask) antes de usar.
+
+2. ANNOTATIONS SÃO POSICIONADAS EM COORDENADAS CHUTADAS
+   (ANNOTATION_POSITIONS em LessonSummary.tsx tem right-atrium:
+   { x: '14%', y: '32%' }). Essas posições foram inventadas no abstrato
+   — não tenho ideia de onde exatamente os chambers aparecem na imagem
+   real do fal.ai. Resultado: leader lines apontam pra qualquer lugar,
+   não pros chambers.
+
+3. DECORAÇÕES FORAM COLADAS SEM INTEGRAÇÃO — adicionei
+   <TopographicBackground> + <AtmosphericBlobs> em todas cenas porque
+   "Canva tem", mas sem perguntar se faz sentido pro conteúdo daquela
+   cena específica. Resultado: blobs aparecem mesmo quando estão
+   atrapalhando a leitura do conteúdo principal.
+
+4. SEM GRID/SISTEMA DE LAYOUT — cada componente faz padding, position,
+   flex próprios. Sem 8pt grid, sem coluna baseline, sem proporção
+   áurea. Resultado: alinhamento parece "perto mas não exato" — feel
+   amador.
+
+5. TIPOGRAFIA SEM HIERARQUIA CLARA — fonte sans (Inter) em tudo,
+   weights variando entre 500-800 sem regra. Tamanhos chutados (42px
+   aqui, 130px lá, 360px no stat) sem escala definida (1.25 ratio, 1.5
+   ratio, etc.). Não tem display font != body font != accent font —
+   tudo é Inter em tamanhos diferentes.
+
+BÔNUS PROBLEMA ESTRUTURAL: zero validação. Eu codo o template, mando
+renderizar, vejo o resultado. Não tem etapa de "checar se o asset foi
+processado", "checar se as annotations estão visíveis sobre a imagem",
+"checar contraste mínimo do caption". Cada render é loteria.
