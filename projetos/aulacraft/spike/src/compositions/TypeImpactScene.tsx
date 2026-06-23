@@ -32,6 +32,69 @@ const ENTER_WORDS_AT = 30;
 const WORD_STAGGER = 6;
 const EXIT_DURATION = 18;
 
+// Estima largura de uma palavra (px) pelo numero de chars e o tamanho da fonte.
+// Fatores por familia: Bebas (display) e condensada; Inter/Fraunces mais largas.
+const charWidthFactor = (emphasis: WordEmphasis): number => {
+  if (emphasis === 'display-huge') return 0.52;      // Bebas Neue, condensada
+  if (emphasis === 'editorial-italic') return 0.50;  // Fraunces italic
+  return 0.55;                                        // Inter
+};
+
+const fontSizeFor = (emphasis: WordEmphasis): number => {
+  if (emphasis === 'display-huge') return theme.fontSize.display1;   // 220
+  if (emphasis === 'editorial-italic') return theme.fontSize.display3; // 120
+  return theme.fontSize.bodyLarge;                                   // 52
+};
+
+// Funcao PURA: dado o conjunto de palavras, devolve um fator <=1 que garante
+// que o bloco caiba na zona (largura 1300, altura util ~760). Determinista:
+// mesmo input -> mesmo fator em todo frame, sem flicker.
+const computeFitScale = (words: ImpactWord[]): number => {
+  const MAX_WIDTH = 1300;
+  const MAX_HEIGHT = 760; // 880 util menos folga do preLine + margens
+  const GAP_X = 24;       // theme.spacing.md entre palavras
+
+  // Simula a quebra de linha (flex-wrap) com os tamanhos base.
+  let lineWidth = 0;
+  let lines = 1;
+  let maxLineHeight = 0;
+  let totalHeight = 0;
+  const lineHeights: number[] = [];
+
+  for (const w of words) {
+    const fs = fontSizeFor(w.emphasis);
+    const wordWidth = w.text.length * fs * charWidthFactor(w.emphasis);
+    const lineHeightPx = fs * 0.95; // lineHeight tight aprox
+
+    if (lineWidth > 0 && lineWidth + GAP_X + wordWidth > MAX_WIDTH) {
+      // quebra de linha
+      lineHeights.push(maxLineHeight);
+      lines += 1;
+      lineWidth = wordWidth;
+      maxLineHeight = lineHeightPx;
+    } else {
+      lineWidth = lineWidth === 0 ? wordWidth : lineWidth + GAP_X + wordWidth;
+      maxLineHeight = Math.max(maxLineHeight, lineHeightPx);
+    }
+  }
+  lineHeights.push(maxLineHeight);
+  totalHeight = lineHeights.reduce((a, b) => a + b, 0);
+
+  // Maior palavra isolada nao pode exceder a largura.
+  let widestWord = 0;
+  for (const w of words) {
+    const fs = fontSizeFor(w.emphasis);
+    widestWord = Math.max(widestWord, w.text.length * fs * charWidthFactor(w.emphasis));
+  }
+
+  const heightScale = totalHeight > MAX_HEIGHT ? MAX_HEIGHT / totalHeight : 1;
+  const widthScale = widestWord > MAX_WIDTH ? MAX_WIDTH / widestWord : 1;
+
+  const scale = Math.min(1, heightScale, widthScale);
+  // Piso de seguranca: nunca encolhe abaixo de 0.45 (texto vira ilegivel).
+  return Math.max(0.45, scale);
+};
+
 export const TypeImpactScene: React.FC<TypeImpactSceneProps> = ({
   preLine,
   words,
@@ -75,6 +138,8 @@ export const TypeImpactScene: React.FC<TypeImpactSceneProps> = ({
   });
 
   const glowPulse = (Math.sin(frame / 18) + 1) / 2;
+
+  const fitScale = computeFitScale(words);
 
   return (
     <AbsoluteFill
@@ -197,11 +262,11 @@ export const TypeImpactScene: React.FC<TypeImpactSceneProps> = ({
               ? theme.fonts.editorial
               : theme.fonts.body;
 
-            const fontSize = isDisplay
+            const fontSize = (isDisplay
               ? theme.fontSize.display1
               : isItalic
               ? theme.fontSize.display3
-              : theme.fontSize.bodyLarge;
+              : theme.fontSize.bodyLarge) * fitScale;
 
             const fontWeight = isDisplay
               ? theme.fontWeight.bold
