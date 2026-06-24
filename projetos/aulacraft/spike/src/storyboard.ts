@@ -30,7 +30,7 @@ Um storyboard estruturado: uma sequência de cenas, cada uma usando um dos 6 tem
 
 1. **AIOpenerScene** — Abertura. Fundo atmosférico de IA. Use SEMPRE como a primeira cena. Estabelece o tema. Props: backgroundSrc (string vazia ""), eyebrow, title, subtitle.
 
-2. **AICloserScene** — Fechamento. Fundo atmosférico de IA. Use SEMPRE como a última cena. Fecha com chamada à ação. Props: backgroundSrc (""), eyebrow, title, ctaLabel, ctaText, brandName.
+2. **AICloserScene** — Fechamento. Fundo atmosférico de IA. Use SEMPRE como a última cena. Fecha com chamada à ação. A narração dela (narrationText) NÃO vem do roteiro do criador — é um fechamento curto que VOCÊ compõe (1 a 2 frases), em PT, no tom do roteiro, reforçando a chamada à ação. NUNCA deixe narrationText vazio nesta cena. Props: backgroundSrc (""), eyebrow, title, ctaLabel, ctaText, brandName.
 
 3. **TypeImpactScene** — Tipografia de impacto. Use quando há uma AFIRMAÇÃO que reverte expectativa, condensa a tese, ou é uma frase-soco. Props: preLine, number, numberLabel, words (array de { text, emphasis } onde emphasis é 'normal' | 'display-huge' | 'editorial-italic'). Use 'display-huge' na palavra-chave, 'editorial-italic' pra nuance, 'normal' no resto.
 
@@ -83,6 +83,8 @@ Pense assim: você está FATIANDO o roteiro em pedaços (um por cena) e,
 para cada pedaço, decidindo o template e o que mostrar na tela. O
 narrationText é a fatia bruta do roteiro; os props são a interpretação
 visual dela.
+
+EXCEÇÃO À COBERTURA: a AICloserScene é a única cena cujo narrationText NÃO sai do roteiro. Como ela fecha o vídeo, sua narração é um CTA curto que você compõe. Toda cena, sem exceção, precisa de narrationText com pelo menos 1 caractere — vazio é inválido e será rejeitado.
 
 # RITMO E SEGMENTAÇÃO (70/20/10)
 - LIMITE RÍGIDO: a aula deve ter NO MÍNIMO 8 e NO MÁXIMO 15 cenas. Nunca menos de 8, nunca mais de 15. Cada cena cobre UMA ideia, com 4 a 10 segundos de narração.

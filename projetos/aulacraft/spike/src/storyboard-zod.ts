@@ -68,13 +68,13 @@ const sceneSchema = z.discriminatedUnion('type', [
   z.object({
     type: z.literal('AIOpenerScene'),
     durationInFrames: z.number().int(),
-    narrationText: z.string(),
+    narrationText: z.string().min(1, 'narrationText nao pode ser vazio'),
     props: aiOpenerProps,
   }),
   z.object({
     type: z.literal('StockHeroScene'),
     durationInFrames: z.number().int(),
-    narrationText: z.string(),
+    narrationText: z.string().min(1, 'narrationText nao pode ser vazio'),
     stockQuery: z.string().optional(),
     clipDurationInSeconds: z.number().optional(),
     props: stockHeroProps,
@@ -82,13 +82,13 @@ const sceneSchema = z.discriminatedUnion('type', [
   z.object({
     type: z.literal('TypeImpactScene'),
     durationInFrames: z.number().int(),
-    narrationText: z.string(),
+    narrationText: z.string().min(1, 'narrationText nao pode ser vazio'),
     props: typeImpactProps,
   }),
   z.object({
     type: z.literal('StockOverlayScene'),
     durationInFrames: z.number().int(),
-    narrationText: z.string(),
+    narrationText: z.string().min(1, 'narrationText nao pode ser vazio'),
     stockQuery: z.string().optional(),
     clipDurationInSeconds: z.number().optional(),
     props: stockOverlayProps,
@@ -96,13 +96,13 @@ const sceneSchema = z.discriminatedUnion('type', [
   z.object({
     type: z.literal('TypeQuoteScene'),
     durationInFrames: z.number().int(),
-    narrationText: z.string(),
+    narrationText: z.string().min(1, 'narrationText nao pode ser vazio'),
     props: typeQuoteProps,
   }),
   z.object({
     type: z.literal('AICloserScene'),
     durationInFrames: z.number().int(),
-    narrationText: z.string(),
+    narrationText: z.string().min(1, 'narrationText nao pode ser vazio'),
     props: aiCloserProps,
   }),
 ]);
